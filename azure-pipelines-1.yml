@@ -12,16 +12,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-    - name: Gitleals scan
-      run:  export VER="1.24.0" &&  wget https://github.com/zricethezav/gitleaks/releases/download/v$VER/gitleaks-linux-amd64 && mv gitleaks-linux-amd64 gitleaks && chmod +x gitleaks && sudo mv gitleaks /usr/local/bin/ && gitleaks --repo=https://github.com/mani7444/Gitaction-demo-eks.git
-    - uses: actions/checkout@v1
-    - name: gitleaks-action
-      uses: zricethezav/gitleaks-action@master
-    - name: Set up Go 1.x
-      uses: actions/setup-go@v2
-      with:
-        go-version: ^1.16
-      id: go
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
