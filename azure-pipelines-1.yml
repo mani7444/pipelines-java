@@ -1,17 +1,28 @@
---- 
-pool: 
+# Maven
+steps:
+- task: SonarQubePreBuild@1
+  inputs:
+    projectKey: 'sqp_55e8ce946e2d18e23f42df65e66896b698020b7e'
+    projectName: 'azure'
+    projectVersion: '1.0'
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- main
+
+pool:
   vmImage: ubuntu-latest
-steps: 
-  - 
-    inputs: 
-      goals: package
-      javaHomeOption: JDKVersion
-      jdkArchitectureOption: x64
-      jdkVersionOption: "1.8"
-      mavenOptions: "-Xmx3072m"
-      mavenPomFile: pom.xml
-      publishJUnitResults: true
-      testResultsFiles: "**/surefire-reports/TEST-*.xml"
-    task: Maven@3
-trigger: 
-  - main
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
